@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Maxis Time",
+    "description": "Extension for Maxis Time",
+    "version": "1.0",
+    "action": {
+      "default_popup": "main.html",
+      "default_icon": "hello_extensions.png"
+    },
+    "permissions": [
+        "scripting",
+        "storage",
+        "tabs"
+    ],
+    "host_permissions": [
+        "*://*/*"
+    ]
+  }
