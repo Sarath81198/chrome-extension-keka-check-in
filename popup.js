@@ -32,18 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
         }
         else {
-            const response = await postData('http://localhost:3000/check-user-for-token', { userId: localStorage.getItem('user_id') })
-            const jsonResponse = await response.json()
-            if(response.status === 401) {
-                const res = response.json()
-                clockOutBtn.style.display = "none"
-                clockInBtn.style.display = "none"
-                document.getElementById("clocked-in-status").innerHTML = jsonResponse.message
-            }
-            else if(response.status === 200){
-                checkClockInStatus(jsonResponse.accessToken)
-            }
-            console.log(response)
+            const accessToken = localStorage.getItem('keka')
+            await checkClockInStatus(accessToken)
         }
     } 
     catch(err) {
@@ -91,7 +81,11 @@ function checkClockInStatus(accessToken, clockInBtnId = 'clockIn', clockOutBtnId
                 clockOutBtn.style.display = "none"
             }true
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            document.getElementById("clocked-in-status").innerHTML = `Open Keka once and login`
+            clockInBtn.style.display = "none"
+            clockOutBtn.style.display = "none"
+        })
 }
 
 const webClockInUrl = 'https://calibraint.keka.com/k/dashboard/api/mytime/attendance/webclockin'
